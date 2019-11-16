@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ducat.daos.UserDao;
 import com.ducat.entities.User;
+import com.ducat.validators.MailValidator;
 
 @Controller
 @RequestMapping(value="/userapp")
@@ -18,6 +19,8 @@ public class UserController {
 
 	@Autowired
 	UserDao dao;
+	@Autowired
+	MailValidator validator;
 	
 	// Method to return the home page.
 	@RequestMapping(value="/", method=RequestMethod.GET)
@@ -35,8 +38,11 @@ public class UserController {
 		 @Valid @ModelAttribute  User user,
 		 BindingResult result)
 	{
+		//custom validation is executed
+		validator.validate(user, result);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("user", user);
+		
 		if(result.hasErrors())
 		{
 			
