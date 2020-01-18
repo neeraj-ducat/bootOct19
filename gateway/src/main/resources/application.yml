@@ -1,0 +1,22 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: gateway
+      
+zuul:
+  routes:
+    adder: 
+      path: /adder/add/**
+      stripPrefix: false
+    sub: 
+      path: /sub/diff/**
+      stripPrefix: false
+      
+    
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7171/eureka/    
+        
